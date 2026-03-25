@@ -1,6 +1,8 @@
 package com.lucienroseblood.autominer.ui.panels;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.lucienroseblood.autominer.mines.IMine;
+import com.lucienroseblood.autominer.mines.MineManual;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +28,7 @@ public class MinePanel extends JPanel {
         child.add(panelButton);
         //panelButton.setLayout(new BorderLayout());
 
-        JButton mineButton = new JButton("Mine");
-        mineButton.setPreferredSize(new Dimension(64, 64));
-        panelButton.add(mineButton, BorderLayout.CENTER);
+        IMine mine = new MineManual();
+        panelButton.add(mine.getJPanel());
     }
 }

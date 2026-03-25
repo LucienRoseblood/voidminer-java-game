@@ -8,6 +8,18 @@ import javax.swing.*;
 import javax.swing.SpringLayout;
 import java.awt.*;
 
+
+/// <summary>
+/// UI structure:
+/// mainPanel
+/// -minePanel
+/// --resourcePanel
+/// ---IResources
+/// --excavationPanel
+/// ---IMines
+/// -upgradePanel
+/// --IUpgrades
+/// </summary>
 public class GUI {
     public GUI(){
         FlatDarkLaf.setup();
@@ -21,12 +33,11 @@ public class GUI {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         frame.add(mainPanel);
 
-        //main panels
+        //mine panel
         JPanel minePanel = new MinePanel();
         GridBagConstraints c = new GridBagConstraints();
         mainPanel.add(minePanel, c);
-
-        //mainPanel.add(new JSeparator(JSeparator.VERTICAL));
+        //upgrade panel
         JPanel upgradePanel = new UpgradePanel();
         mainPanel.add(upgradePanel);
 
