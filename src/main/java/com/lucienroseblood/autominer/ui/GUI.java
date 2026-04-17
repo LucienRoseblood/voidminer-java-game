@@ -5,7 +5,6 @@ import com.lucienroseblood.autominer.ui.panels.MinePanel;
 import com.lucienroseblood.autominer.ui.panels.UpgradePanel;
 
 import javax.swing.*;
-import javax.swing.SpringLayout;
 import java.awt.*;
 
 
@@ -21,7 +20,7 @@ import java.awt.*;
 /// --IUpgrades
 /// </summary>
 public class GUI {
-    public GUI(){
+    public GUI() {
         FlatDarkLaf.setup();
 
         JFrame frame=new JFrame();
@@ -29,22 +28,31 @@ public class GUI {
 
         //background
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(1, 2, 5, 5));
+        mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         frame.add(mainPanel);
 
+
         //mine panel
-        JPanel minePanel = new MinePanel();
+        JComponent minePanel = new MinePanel();
         GridBagConstraints c = new GridBagConstraints();
-        mainPanel.add(minePanel, c);
+        //mainPanel.add(minePanel, c);
         //upgrade panel
-        JPanel upgradePanel = new UpgradePanel();
-        mainPanel.add(upgradePanel);
+        JComponent upgradePanel = new UpgradePanel();
+        //mainPanel.add(upgradePanel);
 
 
-        frame.setSize(800,600);
+        //split
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, minePanel, upgradePanel);
+        splitPane.setResizeWeight(1.0);
+        splitPane.setEnabled(false);
+        mainPanel.add(splitPane, BorderLayout.CENTER);
+
+
+        frame.setMinimumSize(new Dimension(800, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.pack();
+        //frame.setResizable(false);
         frame.setVisible(true);
     }
 }

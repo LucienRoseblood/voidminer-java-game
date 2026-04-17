@@ -1,15 +1,25 @@
 package com.lucienroseblood.autominer.ui.panels;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.lucienroseblood.autominer.upgrades.UpgradeTest;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class UpgradePanel extends JPanel {
+public class UpgradePanel extends JTabbedPane {
     public UpgradePanel() {
-        putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: darken($Panel.background,5%)");
-        setLayout(new BorderLayout());
-        //TODO make upgrades
+        //configuration
+        setPreferredSize(new Dimension(300, getPreferredSize().height));
+        JPanel child = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(child);
+        //setLayout(new BorderLayout());
+        child.setOpaque(false);
+        child.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        addTab("Upgrades", scrollPane);
+        child.setLayout(new BoxLayout(child, BoxLayout.Y_AXIS));
+
+        //content
+        child.add(new UpgradeTest().GetUI());
     }
 }

@@ -1,5 +1,7 @@
 package com.lucienroseblood.autominer.resources;
 
+import com.lucienroseblood.autominer.ui.panels.ResourcePanel;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,16 +11,15 @@ import java.util.Map;
  */
 public final class ResourceManager {
     private static Map<ResourceType, Integer> resources;
-
+    private static Map<ResourceType, ResourcePanel> resourcePanels;
 
     private ResourceManager() {}
 
 
-    public static void initialize()
-    {
+    public static void initialize() {
         resources = new HashMap<>();
-        for(ResourceType r : ResourceType.values())
-        {
+        resourcePanels = new HashMap<>();
+        for(ResourceType r : ResourceType.values()) {
             resources.put(r, 0);
         }
     }
@@ -29,9 +30,11 @@ public final class ResourceManager {
     }
     public static void setResource(ResourceType resource, int amount) {
         resources.put(resource, amount);
+        if(resourcePanels.containsKey(resource)) resourcePanels.get(resource).UpdateCount(amount);
     }
     public static void addResource(ResourceType resource, int amount) {
-        resources.computeIfPresent(resource, (key, value) -> value+=amount);
+        resources.computeIfPresent(resource, (key, value) -> value+amount);
+        if(resourcePanels.containsKey(resource)) resourcePanels.get(resource).UpdateCount(resources.get(resource));
     }
     public static boolean useResource(ResourceType resource, int amount) {
         Integer value = resources.get(resource);
@@ -41,8 +44,16 @@ public final class ResourceManager {
     }
 
 
+    /**
+     * Generate a ResourceType for next mining operation
+     * @param depth depth of mine, used to determine ResourceType
+     */
     public static ResourceType getNextResource(int depth)
     {
         return ResourceType.stone;
+    }
+
+    public static void AttachResourcePanel(ResourceType type, ResourcePanel panel) {
+        resourcePanels.put(type, panel);
     }
 }
