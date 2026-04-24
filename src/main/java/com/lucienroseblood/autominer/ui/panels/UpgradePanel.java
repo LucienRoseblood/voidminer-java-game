@@ -1,10 +1,8 @@
 package com.lucienroseblood.autominer.ui.panels;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.lucienroseblood.autominer.upgrades.UpgradeTest;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class UpgradePanel extends JTabbedPane {
@@ -20,6 +18,6 @@ public class UpgradePanel extends JTabbedPane {
         child.setLayout(new BoxLayout(child, BoxLayout.Y_AXIS));
 
         //content
-        child.add(new UpgradeTest().GetUI());
+        child.add(new UpgradeTest().getUI());
     }
 }

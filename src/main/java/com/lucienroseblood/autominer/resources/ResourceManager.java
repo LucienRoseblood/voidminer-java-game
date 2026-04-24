@@ -1,17 +1,19 @@
 package com.lucienroseblood.autominer.resources;
 
 import com.lucienroseblood.autominer.ui.panels.ResourcePanel;
+import com.lucienroseblood.autominer.ui.panels.UpgradePanel;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * Keeps all resource values.
+ * Keeps all resource values and manages their changes.
  */
 public final class ResourceManager {
     private static Map<ResourceType, Integer> resources;
     private static Map<ResourceType, ResourcePanel> resourcePanels;
+    private static Map<ResourceType, UpgradePanel> resourceButtons;
 
     private ResourceManager() {}
 
@@ -55,5 +57,10 @@ public final class ResourceManager {
 
     public static void AttachResourcePanel(ResourceType type, ResourcePanel panel) {
         resourcePanels.put(type, panel);
+    }
+
+    public static void UpdateUpgradeButtons(ResourceType type)
+    {
+
     }
 }

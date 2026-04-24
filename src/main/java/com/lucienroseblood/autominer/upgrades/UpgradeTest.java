@@ -1,5 +1,10 @@
 package com.lucienroseblood.autominer.upgrades;
 
+import com.lucienroseblood.autominer.resources.ResourceType;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class UpgradeTest extends Upgrade {
     @Override
     public String getName() {
@@ -12,7 +17,12 @@ public class UpgradeTest extends Upgrade {
     }
 
     @Override
-    protected void Activate() {
+    public Map<ResourceType, Integer> getCost() {
+        return Map.of(ResourceType.stone, 5);
+    }
 
+    @Override
+    protected void Activate() {
+        System.out.println("Balls");
     }
 }
