@@ -1,16 +1,20 @@
 package com.lucienroseblood.autominer.upgrades;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.lucienroseblood.autominer.resources.ResourceManager;
 import com.lucienroseblood.autominer.resources.ResourceType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 public abstract class Upgrade {
     // I thought about adding it to the constructor but description values might change so this is better I guess.
     public abstract String getName();
     public abstract String getDescription();
+    public abstract boolean getIsRepetitive();
 
     public abstract Map<ResourceType, Integer> getCost();
     public String getCostString() {
@@ -22,6 +26,7 @@ public abstract class Upgrade {
     }
 
     //UI things
+    protected JPanel parentPanel;
     protected JLabel descriptionLabel;
     protected JLabel costLabel;
     protected JButton buyButton;
@@ -39,15 +44,18 @@ public abstract class Upgrade {
      */
     public JPanel getUI()
     {
+        if(parentPanel!=null) return parentPanel;
+
+        //generate UI
         //parent panel
-        JPanel panel = new JPanel();
-        panel.putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: darken($Panel.background,5%)");
-        panel.setLayout(new BorderLayout());
+        parentPanel = new JPanel();
+        parentPanel.putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: darken($Panel.background,5%)");
+        parentPanel.setLayout(new BorderLayout());
         //text child
         JPanel child = new JPanel();
         child.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         child.setOpaque(false);
-        panel.add(child, BorderLayout.CENTER);
+        parentPanel.add(child, BorderLayout.CENTER);
         child.setLayout(new BorderLayout());
 
         //content
@@ -83,13 +91,19 @@ public abstract class Upgrade {
 
         //buttons
         buyButton = new JButton("Buy");
-        buyBulkButton = new JButton("Buy x10");
+        buyButton.addActionListener(_ -> buy());
+        if(getIsRepetitive())
+        {
+            buyBulkButton = new JButton("Buy x10");
+            updateButtons();
+            buttonPanel.add(buyBulkButton);
+        } else
+            updateButtons();
         buttonPanel.add(buyButton);
-        buttonPanel.add(buyBulkButton);
 
-        panel.setMinimumSize(new Dimension(290, panel.getPreferredSize().height));
-        panel.setMaximumSize(new Dimension(290, panel.getPreferredSize().height));
-        return panel;
+        parentPanel.setMinimumSize(new Dimension(290, parentPanel.getPreferredSize().height));
+        parentPanel.setMaximumSize(new Dimension(290, parentPanel.getPreferredSize().height));
+        return parentPanel;
     }
 
     /**
@@ -100,5 +114,30 @@ public abstract class Upgrade {
         if(costLabel==null) return;
 
         //do something
+    }
+
+    /**
+     * Check if the cost is met and enable/disable the buy button(s) accordingly
+     */
+    public void updateButtons()
+    {
+        //check resources
+        if(!ResourceManager.checkResource(getCost())) {
+            buyButton.setEnabled(false);
+            return;
+        }
+        //enough of all resources
+        buyButton.setEnabled(true);
+    }
+
+    /**
+     * Try to buy the upgrade and activate it if succeeded
+     */
+    protected void buy()
+    {
+        if(!ResourceManager.useResource(getCost())) return;
+
+        if(!getIsRepetitive()) UpgradeManager.removeUpgrade(this);
+        Activate();
     }
 }

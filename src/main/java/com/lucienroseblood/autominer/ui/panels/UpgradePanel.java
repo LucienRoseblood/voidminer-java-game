@@ -1,11 +1,14 @@
 package com.lucienroseblood.autominer.ui.panels;
 
+import com.lucienroseblood.autominer.upgrades.UpgradeManager;
 import com.lucienroseblood.autominer.upgrades.UpgradeTest;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class UpgradePanel extends JTabbedPane {
+    public JPanel upgradeRoot;
+
     public UpgradePanel() {
         //configuration
         setPreferredSize(new Dimension(300, getPreferredSize().height));
@@ -16,8 +19,6 @@ public class UpgradePanel extends JTabbedPane {
         child.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         addTab("Upgrades", scrollPane);
         child.setLayout(new BoxLayout(child, BoxLayout.Y_AXIS));
-
-        //content
-        child.add(new UpgradeTest().getUI());
+        UpgradeManager.setUpgradeRoot(child);
     }
 }

@@ -17,8 +17,13 @@ public class UpgradeTest extends Upgrade {
     }
 
     @Override
+    public boolean getIsRepetitive() {
+        return false;
+    }
+
+    @Override
     public Map<ResourceType, Integer> getCost() {
-        return Map.of(ResourceType.stone, 5);
+        return Map.of(ResourceType.stone, 1);
     }
 
     @Override

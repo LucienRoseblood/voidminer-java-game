@@ -13,7 +13,7 @@ public class ResourcePanel extends JPanel {
         this.type = type;
         label = new JLabel();
         UpdateCount(0);
-        putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: $Panel.background");
+        putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: lighten($Panel.background, 5%)");
         add(label);
     }
 
