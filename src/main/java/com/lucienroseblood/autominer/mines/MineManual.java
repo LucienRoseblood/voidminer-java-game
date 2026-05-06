@@ -9,9 +9,11 @@ import java.awt.*;
 
 public final class MineManual extends JPanel implements IMine {
     private float progress;
+    private int depth;
     private float digThreshold;
     private JButton mineButton;
     private JProgressBar mineProgressBar;
+    private JProgressBar mineDepthBar;
 
     public MineManual() {
         progress = 0f;
@@ -19,11 +21,12 @@ public final class MineManual extends JPanel implements IMine {
 
         //create GUI
         setPreferredSize(new Dimension(96, 96));
-        putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: $Panel.background");
+        putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: darken($Panel.background,5%)");
+        //putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: $Panel.background");
 
         //button
         mineButton = new JButton("Stone");
-        mineButton.addActionListener((l) -> {click();});
+        mineButton.addActionListener(_ -> click());
         mineButton.setPreferredSize(new Dimension(64, 64));
         add(mineButton);
         //progressBar
@@ -66,6 +69,6 @@ public final class MineManual extends JPanel implements IMine {
 
     @Override
     public void excavate() {
-        ResourceManager.addResource(ResourceType.stone, 1);
+        ResourceManager.addResource(ResourceType.simple, 1);
     }
 }

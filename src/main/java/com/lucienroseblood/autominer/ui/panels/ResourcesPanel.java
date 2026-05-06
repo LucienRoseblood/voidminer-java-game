@@ -14,8 +14,6 @@ import java.awt.*;
 public class ResourcesPanel extends JPanel {
     public ResourcesPanel()
     {
-        //setMaximumSize(new Dimension(Integer.MAX_VALUE, getMaximumSize().height));
-
         setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel title = new JLabel("Resources: ");
         add(title);
@@ -33,6 +31,7 @@ public class ResourcesPanel extends JPanel {
             ResourceManager.AttachResourcePanel(r, panel);
 
         }
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, ResourceType.values().length * 20));
 
 
     }

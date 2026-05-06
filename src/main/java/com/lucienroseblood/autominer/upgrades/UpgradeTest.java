@@ -2,7 +2,6 @@ package com.lucienroseblood.autominer.upgrades;
 
 import com.lucienroseblood.autominer.resources.ResourceType;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class UpgradeTest extends Upgrade {
@@ -23,7 +22,7 @@ public class UpgradeTest extends Upgrade {
 
     @Override
     public Map<ResourceType, Integer> getCost() {
-        return Map.of(ResourceType.stone, 1);
+        return Map.of(ResourceType.simple, 1);
     }
 
     @Override

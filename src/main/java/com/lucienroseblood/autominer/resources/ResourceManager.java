@@ -4,7 +4,6 @@ import com.lucienroseblood.autominer.ui.panels.ResourcePanel;
 import com.lucienroseblood.autominer.ui.panels.UpgradePanel;
 import com.lucienroseblood.autominer.upgrades.UpgradeManager;
 
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +101,7 @@ public final class ResourceManager {
      */
     public static ResourceType getNextResource(int depth)
     {
-        return ResourceType.stone;
+        return ResourceType.simple;
     }
 
     public static void AttachResourcePanel(ResourceType type, ResourcePanel panel) {

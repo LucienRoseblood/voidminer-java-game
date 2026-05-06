@@ -10,13 +10,11 @@ import java.awt.*;
 
 public class MinePanel extends JTabbedPane {
     public MinePanel() {
-
         //add a panel to add margin
         JPanel child = new JPanel();
         child.setOpaque(false);
         child.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         child.setLayout(new BoxLayout(child, BoxLayout.PAGE_AXIS));
-        //add(child, BorderLayout.CENTER);
         addTab("Mines", child);
 
         //add elements
@@ -25,7 +23,9 @@ public class MinePanel extends JTabbedPane {
 
         JPanel panelButton = new JPanel();
         child.add(panelButton);
-        panelButton.setLayout(new BorderLayout());
+
+        //panelButton.setLayout(new BorderLayout());
+        panelButton.putClientProperty(FlatClientProperties.STYLE, "border: 1,1,1,1,@disabledForeground,1,16; background: $Panel.background");
 
         IMine mine = new MineManual();
         panelButton.add(mine.getJPanel());
